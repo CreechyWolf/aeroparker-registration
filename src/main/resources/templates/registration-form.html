@@ -22,56 +22,73 @@
 					th:text="${errorMessage}"></span></p>
 			<div class="form-group">
 				<label for="titleInput">* Title</label>
-				<input class="form-control" id="titleInput" required maxlength="5" type="text" name="title" 
-                    placeholder="Enter title" data-parsley-trigger="focusout"/>
+				<input class="form-control" id="titleInput" required maxlength="5" type="text" name="title"
+					placeholder="Enter title" data-parsley-trigger="focusout" />
 			</div>
 			<div class="form-group">
 				<label for="firstNameInput">* First Name</label>
 				<input class="form-control" id="firstNameInput" required maxlength="50" type="text" name="firstName"
-					placeholder="Enter first name" data-parsley-trigger="focusout"/>
+					placeholder="Enter first name" data-parsley-trigger="focusout" />
 			</div>
 			<div class="form-group">
 				<label for="lastNameInput">* Last Name</label>
-				<input class="form-control" id="lastNameInput" required maxlength="50" type="text" name="lastName" 
-				    placeholder="Enter last name" data-parsley-trigger="focusout"/>
+				<input class="form-control" id="lastNameInput" required maxlength="50" type="text" name="lastName"
+					placeholder="Enter last name" data-parsley-trigger="focusout" />
 			</div>
 			<div class="form-group">
 				<label for="emailNameInput">* Email</label>
-				<input class="form-control" id="emailInput" required maxlength="255" type="email" name="email" 
-                    placeholder="Enter email name" data-parsley-trigger="focusout"/>
+				<input class="form-control" id="emailInput" required maxlength="255" type="email" name="email"
+					placeholder="Enter email name" data-parsley-trigger="focusout" />
+				<div id="emailError" class="alert alert-danger" role="alert" style="display:none">
+					This is email is already in use!
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="addressLineInput1">* Address Line 1</label>
 				<input class="form-control" id="addressLineInput1" required maxlength="255" type="text"
-					placeholder="Enter address" name="addressLine1" data-parsley-trigger="focusout"/>
+					placeholder="Enter address line" name="addressLine1" data-parsley-trigger="focusout" />
 			</div>
 			<div class="form-group">
 				<label for="addressLineInput2">Address Line 2</label>
-				<input class="form-control" id="addressLineInput2" maxlength="255" type="text" name="addressLine2" 
-                    data-parsley-trigger="focusout"/>
+				<input class="form-control" id="addressLineInput2" maxlength="255" type="text" name="addressLine2"
+					placeholder="(Optional) Enter secondary address line" data-parsley-trigger="focusout" />
 			</div>
 			<div class="form-group">
 				<label for="cityInput">City</label>
-				<input class="form-control" id="cityInput" maxlength="255" type="text" name="city" 
-                    data-parsley-trigger="focusout"/>
+				<input class="form-control" id="cityInput" maxlength="255" type="text" name="city"
+					placeholder="(Optional) Enter City" data-parsley-trigger="focusout" />
 			</div>
 			<div class="form-group">
 				<label for="postCodeInput">* Postcode</label>
-				<input class="form-control" id="postCodeInput" required maxlength="10" type="text" name="postCode" 
-                    placeholder="Enter postcode" data-parsley-trigger="focusout"/>
+				<input class="form-control" id="postCodeInput" required maxlength="10" type="text" name="postCode"
+					placeholder="Enter postcode" data-parsley-trigger="focusout" />
 			</div>
 			<div class="form-group">
 				<label for="phoneNumberInput">Phone Number</label>
 				<input class="form-control" id="phoneNumberInput" maxlength="200" type="text"
-					name="phoneNumber" data-parsley-trigger="focusout"/>
+					placeholder="(Optional) Enter phone number" name="phoneNumber" data-parsley-trigger="focusout" />
 			</div>
+			<br>
 			<input class="btn btn-primary" type="submit" />
 		</form>
 	</div>
 </body>
-
 <script>
-
+	
+	$('#emailInput').on('focusout', function() {
+		$.ajax({
+		url: '../registration-ajax/check-email?email=' + $('#emailInput').val(),
+		type: 'GET',
+		success: function (data) {
+			if (data == true) {
+				$('#emailError').show();
+			} else {
+				$('#emailError').hide();
+			}
+		}
+	});
+	});
+	
 </script>
 
 </html>
