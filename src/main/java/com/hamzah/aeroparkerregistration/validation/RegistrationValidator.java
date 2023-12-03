@@ -37,17 +37,15 @@ public class RegistrationValidator
 		{
 			errorMessage = "No last name was provided or it was too long.";
 			valid = false;
-			
-		}
-		else if (!EmailValidator.getInstance().isValid(email))
-		{
-			errorMessage = "The email address provided was not valid.";
-			valid = false;
-			
 		}
 		else if (!StringUtils.hasText(email) || email.length() >= 256)
 		{
 			errorMessage = "No email address was provided or it was too long.";
+			valid = false;
+		}
+		else if (!EmailValidator.getInstance().isValid(email))
+		{
+			errorMessage = "The email address provided was not valid.";
 			valid = false;
 			
 		}
@@ -57,13 +55,13 @@ public class RegistrationValidator
 			valid = false;
 			
 		}
-		else if (addressLine2 != null && addressLine2.length() >= 256)
+		else if (StringUtils.hasText(addressLine2) && addressLine2.length() >= 256)
 		{
 			errorMessage = "Address line 2 was too long";
 			valid = false;
 			
 		}
-		else if (city != null && city.length() >= 256)
+		else if (StringUtils.hasText(city) && city.length() >= 256)
 		{
 			errorMessage = "City entered was too long.";
 			valid = false;
@@ -75,7 +73,7 @@ public class RegistrationValidator
 			valid = false;
 			
 		}
-		else if (phoneNumber != null && phoneNumber.length() >= 21)
+		else if (StringUtils.hasText(phoneNumber) && phoneNumber.length() >= 21)
 		{
 			errorMessage = "The phone number entered was too long";
 			valid = false;

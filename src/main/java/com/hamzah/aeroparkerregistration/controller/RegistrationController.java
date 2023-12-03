@@ -54,7 +54,6 @@ public class RegistrationController
 		}
 		
 		Customer customer = creator.createCustomer(title, firstName, lastName, email, addressLine1, addressLine2, city, postCode, phoneNumber);
-		
 		databaseManager.insertCustomer(customer);
 		
 		return "success";
