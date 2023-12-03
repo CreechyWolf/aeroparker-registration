@@ -40,4 +40,14 @@ public class CustomerCreatorTest
 		assertEquals(postCode, customer.getPostCode());
 		assertEquals(phoneNumber, customer.getPhoneNumber());
 	}
+	
+	@Test
+	public void testCreateCustomer_SpecialCharsEscaped()
+	{
+		String title = "<>";
+		
+		Customer customer = creator.createCustomer(title, null, null, null, null, null, null, null, null);
+		
+		assertEquals("&lt;&gt;", customer.getTitle());
+	}
 }
