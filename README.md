@@ -1,6 +1,10 @@
 # aeroparker-registration
 Aeroparker Coding Challenge - Registration Form
 
+Built with Java 17 and uses JDBC to interact with MySQL database.
+
+Features a registration page at /registration/register (if hosted locally, localhost:8080/registration/register).
+
 Requires a database connection that can be configured in application.properties. The below table must be created in the database:
 
 ```
