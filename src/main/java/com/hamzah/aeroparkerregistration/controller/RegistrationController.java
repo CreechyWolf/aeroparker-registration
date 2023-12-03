@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hamzah.aeroparkerregistration.creator.CustomerCreator;
 import com.hamzah.aeroparkerregistration.model.Customer;
 import com.hamzah.aeroparkerregistration.model.ValidationResult;
 import com.hamzah.aeroparkerregistration.validation.RegistrationValidator;
@@ -26,6 +27,8 @@ public class RegistrationController
 	private HttpServletRequest req;
 	@Autowired
 	private RegistrationValidator validator;
+	@Autowired
+	private CustomerCreator creator;
 	
 	@GetMapping("/register")
 	public String register()
@@ -52,16 +55,7 @@ public class RegistrationController
 			return "registration-form";
 		}
 		
-		Customer customer = new Customer();
-		customer.setTitle(title);
-		customer.setFirstName(firstName);
-		customer.setLastName(lastName);
-		customer.setEmail(email);
-		customer.setAddressLine1(addressLine1);
-		customer.setAddressLine2(addressLine2);
-		customer.setCity(city);
-		customer.setPostCode(postCode);
-		customer.setPhoneNumber(phoneNumber);
+		Customer customer = creator.createCustomer(title, firstName, lastName, email, addressLine1, addressLine2, city, postCode, phoneNumber);
 		
 		// Insert customer into DB
 		jdbcTemplate.update("INSERT INTO customers(registered, title, first_name, last_name, email_address, address_line_1, address_line_2, city, postcode, phone_number) VALUES (?,?,?,?,?,?,?,?,?,?)",
