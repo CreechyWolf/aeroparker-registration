@@ -1,7 +1,10 @@
 package com.hamzah.aeroparkerregistration.creator;
 
+import org.springframework.stereotype.Component;
+
 import com.hamzah.aeroparkerregistration.model.Customer;
 
+@Component
 public class CustomerCreator
 {
 	public Customer createCustomer(String title, String firstName, String lastName, String email, String addressLine1,

@@ -2,15 +2,17 @@ package com.hamzah.aeroparkerregistration.validation;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import com.hamzah.aeroparkerregistration.database.DatabaseManager;
 import com.hamzah.aeroparkerregistration.model.ValidationResult;
 
+@Component
 public class RegistrationValidator
 {
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private DatabaseManager databaseManager;
 	
 	public ValidationResult validateForm(String title, String firstName, String lastName, String email, String addressLine1,
 			String addressLine2, String city, String postCode, String phoneNumber)
@@ -78,8 +80,7 @@ public class RegistrationValidator
 			errorMessage = "The phone number entered was too long";
 			valid = false;
 		}
-		boolean emailAlreadyExists = jdbcTemplate.queryForList("SELECT id FROM customers where email_address = ?", email).size() == 1;
-		if (emailAlreadyExists)
+		if (databaseManager.isEmailInUse(email))
 		{
 			errorMessage = "Email already in use";
 			valid = false;
