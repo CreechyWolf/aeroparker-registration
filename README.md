@@ -3,6 +3,7 @@ Aeroparker Coding Challenge - Registration Form
 
 Requires a database connection that can be configured in application.properties. The below table must be created in the database:
 
+```
 CREATE TABLE `customers` (
   `id` int NOT NULL AUTO_INCREMENT,
   `registered` datetime NOT NULL,
@@ -18,3 +19,4 @@ CREATE TABLE `customers` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_address_UNIQUE` (`email_address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
