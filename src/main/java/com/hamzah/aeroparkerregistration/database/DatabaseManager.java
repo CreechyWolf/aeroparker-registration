@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.HtmlUtils;
 
 import com.hamzah.aeroparkerregistration.model.Customer;
 
@@ -23,6 +24,7 @@ public class DatabaseManager
 	
 	public boolean isEmailInUse(String email)
 	{
-		return jdbcTemplate.queryForList("SELECT id FROM customers where email_address = ?", email).size() == 1;
+		return jdbcTemplate.queryForList("SELECT id FROM customers where email_address = ?",
+				HtmlUtils.htmlEscape(email).toLowerCase()).size() == 1;
 	}
 }
